@@ -1,0 +1,19 @@
+imports:
+    - { resource: 'commands.yml', ignore_errors: true }
+
+services:
+    oro_config_deploy.provider.config_values:
+        class: 'Oro\Bundle\ConfigDeployBundle\Provider\ConfigValuesProvider'
+        arguments:
+            - '@doctrine'
+
+    oro_config_deploy.processor.export:
+        class: 'Oro\Bundle\ConfigDeployBundle\Processor\ConfigExportProcessor'
+        arguments:
+            - '@oro_config_deploy.provider.config_values'
+            - '@event_dispatcher'
+
+    oro_config_deploy.subscriber.config_value:
+        class: 'Oro\Bundle\ConfigDeployBundle\Subscriber\ConfigValueSubscriber'
+        tags:
+            - { name: kernel.event_subscriber }

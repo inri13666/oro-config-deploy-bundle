@@ -1,0 +1,7 @@
+services:
+    oro_config_deploy.command.export:
+        class: 'Oro\Bundle\ConfigDeployBundle\Command\ConfigExportCommand'
+        arguments:
+            - '@oro_config_deploy.processor.export'
+        tags:
+            - { name: console.command }
